@@ -19,11 +19,11 @@ public class TopNewsService {
     HackerNewsData hackerNewsData;
 
     public List<Story> getTopStories() {
-        return hackerNewsData.getHnData().stories;
+        return hackerNewsData.getHnData().updatedStrories;
     }
 
     public List<Comment> getTopComment(Long id) {
-        return hackerNewsData.getHnData().Story_to_commentMap.get(id);
+        return hackerNewsData.getHnData().UpdatedStory_to_commentMap.get(id);
     }
 
     public Set<Story> getPreStory(){

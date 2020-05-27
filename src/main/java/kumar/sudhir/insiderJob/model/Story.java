@@ -3,9 +3,19 @@ package kumar.sudhir.insiderJob.model;
 public class Story implements Comparable<Story> {
 
     private String title;
+    private Long id;
     private String url;
     private int score;
     private String timeOfSubmission;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     private String user;
 
     public String getTitle() {

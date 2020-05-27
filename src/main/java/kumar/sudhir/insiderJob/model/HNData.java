@@ -14,6 +14,10 @@ public class HNData {
     public Map<Long, List<Comment>> Story_to_commentMap;
     public Set<Story> preStories;
 
+    public List<Story> updatedStrories;
+    public Map<Long, List<Comment>> UpdatedStory_to_commentMap;
+
+
     public HNData(){
         preStories = new HashSet<>();
     }
