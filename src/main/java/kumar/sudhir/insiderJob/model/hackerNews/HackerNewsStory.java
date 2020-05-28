@@ -92,6 +92,11 @@ public class HackerNewsStory implements Comparable<HackerNewsStory>{
     }
 
     @Override
+    public int hashCode() {
+        return (int)(this.getId()%(1e9+7));
+    }
+
+    @Override
     public String toString() {
         return "HackerNewsStories{" +
                 "by='" + by + '\'' +

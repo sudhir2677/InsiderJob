@@ -62,4 +62,9 @@ public class Story implements Comparable<Story> {
     public int compareTo(Story stories) {
         return stories.score - this.score;
     }
+
+    @Override
+    public int hashCode() {
+        return (int)(this.getId()%(1e9+7));
+    }
 }

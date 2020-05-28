@@ -2,7 +2,7 @@ package kumar.sudhir.insiderJob.model.hackerNews;
 
 import java.util.List;
 
-public class HackerNewsComment {
+public class HackerNewsComment implements Comparable<HackerNewsComment>{
 
     private String by;
     private Long id;
@@ -68,5 +68,14 @@ public class HackerNewsComment {
         this.type = type;
     }
 
+    @Override
+    public int hashCode() {
+        return (int)(this.getId()%(1e9+7));
+    }
+
+    @Override
+    public int compareTo(HackerNewsComment hackerNewsComment) {
+        return hackerNewsComment.getKids().size() - this.getKids().size();
+    }
 }
 

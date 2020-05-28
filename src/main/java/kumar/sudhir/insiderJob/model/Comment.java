@@ -1,6 +1,7 @@
 package kumar.sudhir.insiderJob.model;
 
 public class Comment {
+
     private String text;
     private String user;
     private String userAge;

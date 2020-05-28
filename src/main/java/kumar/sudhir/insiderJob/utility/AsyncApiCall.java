@@ -2,6 +2,7 @@ package kumar.sudhir.insiderJob.utility;
 
 import kumar.sudhir.insiderJob.model.hackerNews.HackerNewsComment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,9 +18,7 @@ public class AsyncApiCall {
     @Autowired
     RestTemplate restTemplate;
 
-    static class ChildComment<F>{
-        List<F> kids;
-    }
+    private Executor executor = Executors.newFixedThreadPool(30);
 
     public <T> T getData(String url, Class<T> type){
         //System.out.println("restTemplate : "+restTemplate+" \n url :"+url);
@@ -38,12 +37,11 @@ public class AsyncApiCall {
 
     public <K,T,U> CompletableFuture<T> getToDoAsync(K id, U url, Class<T> type){
         String urls = url.toString()+id.toString()+".json";
-        System.out.println("url : "+urls);
-        Executor executor = Executors.newFixedThreadPool(20);
+        //System.out.println("url : "+urls);
         CompletableFuture<T> future = CompletableFuture.supplyAsync(new Supplier<T>() {
             @Override
             public T get() {
-                final ResponseEntity<T> responseEntity = restTemplate.getForEntity(urls, type);
+                ResponseEntity<T> responseEntity = restTemplate.getForEntity(urls, type);
                 T story = responseEntity.getBody();
                 return story;
             }
@@ -57,27 +55,5 @@ public class AsyncApiCall {
         return future;
     }
 
-    public Map<Long,List<Long>> getSubtreeCount(Map<Long, List<HackerNewsComment>> commentList){
-        Map<Long,List<Long>> commentSortedWise = new HashMap<>();
-        String url = "";
-        for(Long key: commentList.keySet()){
-            Map<Long, Integer> commentToChildComment = new HashMap<>();
-
-            for(HackerNewsComment comment: commentList.get(key)){
-                Queue<Long> q = new LinkedList<>();
-                Set<Long> childComment = new HashSet<>();
-                q.add(comment.getId());
-                while(!q.isEmpty()){
-                    Long id = q.poll();
-                    childComment.add(id);
-                    ChildComment<Long> allChild = getData(url, ChildComment.class);
-                    q.addAll(allChild.kids);
-                }
-                commentToChildComment.put(comment.getId(),childComment.size());
-            }
-
-        }
-        return null;
-    }
 
 }
