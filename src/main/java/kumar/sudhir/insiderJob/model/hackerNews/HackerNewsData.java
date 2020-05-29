@@ -70,8 +70,8 @@ public class HackerNewsData implements CommandLineRunner {
 
 
     @Retryable(value = {Exception.class}, maxAttempts = 5, backoff = @Backoff(delay = 10000))
-    @Scheduled(fixedRate = 300000, initialDelay = 180000)
-    //@Scheduled(fixedRate = 600000, initialDelay = 420000)
+    //@Scheduled(fixedRate = 300000, initialDelay = 180000)
+    @Scheduled(fixedRate = 600000, initialDelay = 420000)
     public void getData() throws Exception{
         System.out.println("---------------------------------------------------------------");
         System.out.println("*********************   Current Data    ***********************");
@@ -89,7 +89,8 @@ public class HackerNewsData implements CommandLineRunner {
         commentToUser.clear();
     }
 
-    @Scheduled(fixedRate = 300000, initialDelay = 300000)
+    //@Scheduled(fixedRate = 300000, initialDelay = 300000)
+    @Scheduled(fixedRate = 600000, initialDelay = 600000)
     public void responseData(){
         flag = true;
         hnData.updatedStrories = new ArrayList<>(hnData.stories);
@@ -101,7 +102,7 @@ public class HackerNewsData implements CommandLineRunner {
         hnData.Story_to_commentMap.clear();
     }
 
-    private Executor executor = Executors.newFixedThreadPool(10);
+    private Executor executor = Executors.newFixedThreadPool(15);
     public void getSubtreeCount(List<HackerNewsStory> storiesList) throws Exception{
         for(HackerNewsStory story: storiesList){
 
