@@ -20,14 +20,14 @@ public class AsyncApiCall {
 
     private Executor executor = Executors.newFixedThreadPool(30);
 
-    public <T> T getData(String url, Class<T> type){
+    public <T> T getData(String url, Class<T> type) {
         //System.out.println("restTemplate : "+restTemplate+" \n url :"+url);
         ResponseEntity<T> responseEntity = restTemplate.getForEntity(url, type);
         T storiesId = responseEntity.getBody();
         return storiesId;
     }
 
-    public <K,T,U> List<T> getData(List<K> ids, U url, Class<T> type){
+    public <K,T,U> List<T> getData(List<K> ids, U url, Class<T> type) {
         List<CompletableFuture<T>> futures = ids.stream().map(id -> getToDoAsync(id, url, type ))
                 .collect(Collectors.toList());
         List<T> result = futures.stream().map(CompletableFuture::join)
@@ -35,7 +35,7 @@ public class AsyncApiCall {
         return result;
     }
 
-    public <K,T,U> CompletableFuture<T> getToDoAsync(K id, U url, Class<T> type){
+    public <K,T,U> CompletableFuture<T> getToDoAsync(K id, U url, Class<T> type) {
         String urls = url.toString()+id.toString()+".json";
         //System.out.println("url : "+urls);
         CompletableFuture<T> future = CompletableFuture.supplyAsync(new Supplier<T>() {

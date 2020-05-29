@@ -1,5 +1,7 @@
 package kumar.sudhir.insiderJob.model.hackerNews;
 
+import kumar.sudhir.insiderJob.model.Story;
+
 import java.util.List;
 
 public class HackerNewsStory implements Comparable<HackerNewsStory>{
@@ -94,6 +96,23 @@ public class HackerNewsStory implements Comparable<HackerNewsStory>{
     @Override
     public int hashCode() {
         return (int)(this.getId()%(1e9+7));
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        HackerNewsStory other = (HackerNewsStory) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
     }
 
     @Override

@@ -2,10 +2,7 @@ package kumar.sudhir.insiderJob.model;
 
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class HNData {
@@ -20,6 +17,8 @@ public class HNData {
 
     public HNData(){
         preStories = new HashSet<>();
+        Story_to_commentMap = new HashMap<>();
+        UpdatedStory_to_commentMap = new HashMap<>();
     }
 
     public List<Story> getStories() {
@@ -32,5 +31,13 @@ public class HNData {
 
     public Set<Story> getPreStories() {
         return preStories;
+    }
+
+    public List<Long> getPreStoriesId(){
+        List<Long> preStoriesId = new ArrayList<>();
+        for(Story story: preStories){
+            preStoriesId.add(story.getId());
+        }
+        return preStoriesId;
     }
 }

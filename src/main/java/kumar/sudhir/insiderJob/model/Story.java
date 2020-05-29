@@ -67,4 +67,21 @@ public class Story implements Comparable<Story> {
     public int hashCode() {
         return (int)(this.getId()%(1e9+7));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Story other = (Story) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
 }

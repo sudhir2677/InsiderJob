@@ -1,6 +1,7 @@
 package kumar.sudhir.insiderJob.service;
 
 import kumar.sudhir.insiderJob.model.Comment;
+import kumar.sudhir.insiderJob.model.HNData;
 import kumar.sudhir.insiderJob.model.Story;
 import kumar.sudhir.insiderJob.model.hackerNews.HackerNewsData;
 import kumar.sudhir.insiderJob.model.hackerNews.HackerNewsStory;
@@ -18,15 +19,21 @@ public class TopNewsService {
     @Autowired
     HackerNewsData hackerNewsData;
 
+    @Autowired
+    HNData hnData;
+
     public List<Story> getTopStories() {
-        return hackerNewsData.getHnData().updatedStrories;
+        return hnData.updatedStrories;
+        //return hackerNewsData.getHnData().updatedStrories;
     }
 
     public List<Comment> getTopComment(Long id) {
-        return hackerNewsData.getHnData().UpdatedStory_to_commentMap.get(id);
+        return hnData.UpdatedStory_to_commentMap.get(id);
+        //return hackerNewsData.getHnData().Story_to_commentMap.get(id);
     }
 
     public Set<Story> getPreStory(){
-        return hackerNewsData.getHnData().preStories;
+        return hnData.preStories;
+        //return hackerNewsData.getHnData().preStories;
     }
 }

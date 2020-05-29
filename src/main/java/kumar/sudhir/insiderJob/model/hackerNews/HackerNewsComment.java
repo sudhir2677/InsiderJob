@@ -1,5 +1,7 @@
 package kumar.sudhir.insiderJob.model.hackerNews;
 
+import kumar.sudhir.insiderJob.model.Story;
+
 import java.util.List;
 
 public class HackerNewsComment implements Comparable<HackerNewsComment>{
@@ -74,8 +76,38 @@ public class HackerNewsComment implements Comparable<HackerNewsComment>{
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        HackerNewsComment other = (HackerNewsComment) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    @Override
     public int compareTo(HackerNewsComment hackerNewsComment) {
         return hackerNewsComment.getKids().size() - this.getKids().size();
+    }
+
+    @Override
+    public String toString() {
+        return "HackerNewsComment{" +
+                "by='" + by + '\'' +
+                ", id=" + id +
+                ", kids=" + kids +
+                ", parent=" + parent +
+                ", text='" + text + '\'' +
+                ", time=" + time +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
 
